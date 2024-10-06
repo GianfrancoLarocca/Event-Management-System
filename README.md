@@ -1,66 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Event Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descrizione del Progetto
+Un sistema di gestione degli eventi in cui gli utenti possono registrarsi, effettuare il login, creare eventi, gestire i partecipanti e vedere i dettagli degli eventi. Gli utenti possono avere ruoli diversi (admin, organizzatore e partecipante) e le autorizzazioni variano in base al ruolo.
 
-## About Laravel
+## Funzionalità Principali
+1. **Autenticazione e Registrazione**
+   - Implementare il sistema di login, registrazione e reimpostazione della password utilizzando le funzionalità integrate di Laravel (Laravel Breeze o Jetstream).
+   - Differenti ruoli utente: admin, organizzatore, partecipante.
+   
+2. **Dashboard e Profili Utente**
+   - Creare una dashboard personalizzata per gli utenti, mostrando i dettagli degli eventi a cui partecipano.
+   - Sezione profilo per aggiornare le informazioni personali (nome, email, immagine profilo, ecc.).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+3. **Gestione degli Eventi**
+   - Creare, aggiornare e cancellare eventi (CRUD).
+   - Aggiungere descrizioni, date, orari, luoghi e immagini per gli eventi.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+4. **Partecipazione agli Eventi**
+   - Gli utenti possono registrarsi a un evento.
+   - Visualizzare l'elenco dei partecipanti per ciascun evento.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+5. **Amministrazione**
+   - Solo gli utenti con ruolo di admin possono accedere a una dashboard di amministrazione.
+   - Gestione utenti: gli admin possono vedere, aggiornare e rimuovere utenti.
+   - Gestione degli eventi: approvare o rimuovere eventi creati dagli organizzatori.
 
-## Learning Laravel
+6. **Middleware e Permessi**
+   - Utilizzare i middleware per proteggere le rotte in base ai ruoli utente.
+   - Creare policy e gate per definire l'accesso alle diverse funzionalità in base al ruolo.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+7. **Notifiche e Email**
+   - Inviare email di conferma quando un utente si iscrive a un evento.
+   - Notifiche in tempo reale (utilizzando Laravel Echo e Pusher) per avvisare gli utenti di nuove modifiche agli eventi.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+8. **Utilizzo di Blade e Componenti**
+   - Utilizzare Blade per creare viste dinamiche e interattive.
+   - Creare componenti Blade riutilizzabili per moduli, carte di eventi e layout della pagina.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+9. **Database e Relazioni**
+   - Tabelle per utenti, eventi e partecipazioni (relazione molti-a-molti tra utenti ed eventi).
+   - Utilizzare le migrazioni per creare le tabelle.
+   - Eloquent ORM per gestire le relazioni tra i modelli.
 
-## Laravel Sponsors
+10. **API e AJAX**
+    - Creare API per permettere ad altri client (es. una SPA o un'app mobile) di interagire con il sistema.
+    - Utilizzare AJAX per operazioni asincrone come la registrazione a un evento.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+11. **Interfaccia Utente**
+    - Utilizzare Bootstrap, TailwindCSS o un altro framework CSS per creare un'interfaccia utente pulita e responsiva.
 
-### Premium Partners
+## Struttura delle Tabelle nel Database
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Users
+- `id`
+- `name`
+- `email`
+- `password`
+- `role` (admin, organizer, participant)
+- `created_at`
+- `updated_at`
 
-## Contributing
+### Events
+- `id`
+- `title`
+- `description`
+- `date`
+- `location`
+- `image`
+- `created_by` (id dell'organizzatore)
+- `created_at`
+- `updated_at`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Event_User (tabella pivot)
+- `id`
+- `user_id`
+- `event_id`
+- `created_at`
+- `updated_at`
 
-## Code of Conduct
+## Rotte Principali
+- `/login`: Form di login.
+- `/register`: Form di registrazione.
+- `/dashboard`: Dashboard utente (diversa per admin, organizzatore e partecipante).
+- `/events`: Elenco degli eventi.
+- `/events/create`: Creazione di un nuovo evento (solo per organizzatori).
+- `/events/{id}`: Dettaglio dell'evento.
+- `/events/{id}/edit`: Modifica dell'evento (solo organizzatori/admin).
+- `/admin`: Dashboard di amministrazione (solo per admin).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Risultati Attesi
+Alla fine del progetto, acquisirai familiarità con molte delle funzionalità di Laravel, inclusi:
+- Routing
+- Controller e middleware
+- Gestione di Blade e dei componenti
+- Gestione del database con migrazioni e Eloquent ORM
+- Autenticazione e autorizzazione (ruoli e permessi)
+- Gestione di notifiche e email
+- Creazione di API e gestione di chiamate AJAX
+- Gestione di eventi real-time con Echo (facoltativo).
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Tecnologie Utilizzate
+- **Laravel** (Framework backend)
+- **MySQL** (Database)
+- **Blade** (Templating engine)
+- **Bootstrap** o **TailwindCSS** (Styling)
+- **Laravel Echo & Pusher** (Notifiche in tempo reale, opzionale)
+- **AJAX** per richieste asincrone
